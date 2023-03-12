@@ -12,6 +12,7 @@
 		"@fontsource/fira-mono": "^4.5.10",
 		"@neoconfetti/svelte": "^1.0.0",
 		"@sveltejs/adapter-auto": "^2.0.0",
+		"@sveltejs/adapter-static": "^2.0.1",
 		"@sveltejs/kit": "^1.5.0",
 		"@types/cookie": "^0.5.1",
 		"@types/dom-to-image": "^2.6.4",
@@ -33,6 +34,7 @@
 		"dom-to-image": "^2.6.0",
 		"file-saver": "^2.0.5",
 		"html-to-image": "^1.11.11",
+		"moment": "^2.29.4",
 		"svelte-legos": "^0.0.4"
 	}
 }
