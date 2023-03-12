@@ -2,7 +2,7 @@
 	import { getGradientStore } from './GradientsStore';
 	import type { Gradient } from './types';
 
-	const { gradients, setActiveGradient, activeGradient } = getGradientStore();
+	const { gradients, setActiveGradient, activeGradient, padding } = getGradientStore();
 
 	function handleGradientClick(gradient: Gradient) {
 		setActiveGradient(gradient);
@@ -42,14 +42,10 @@
 
   <div>
     <div class="mb-3 flex justify-between items-center">
-      <div>Card</div>
-      <div class="space-x-2 flex">
-        <div>
-          
-        </div>
-          <label for="card-dark">Dark</label>
-          <input name="card-type" id="card-dark" type="radio">
-      </div>
+      <div>Padding</div>
     </div>
+		<div>
+			<input class="w-full" type="range" bind:value={$padding} />
+		</div>
   </div>
 </div>

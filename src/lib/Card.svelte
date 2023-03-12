@@ -2,6 +2,7 @@
 	import type { Tweet } from './Tweet';
 	import Moment from 'moment';
 	import type { CanvasMode } from './types';
+	import { getGradientStore } from './GradientsStore';
 
 	export let width: string;
 	export let height: string;
@@ -14,6 +15,7 @@
 	// 		? Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + 'k'
 	// 		: Math.sign(num) * Math.abs(num);
 	// }
+	const { padding } = getGradientStore();
 
 	$: moment = tweet && Moment(tweet.createdAt);
 </script>
@@ -21,7 +23,7 @@
 {#if tweet}
 	<div class="max-w-[39em] relative z-0 transition-all w-full card-holder">
 		<div class="card-background absolute inset-0" style:background-size="{width} {height}" />
-		<div class="p-8 relative">
+		<div class="relative" style:padding={$padding + 'px'}>
 			<div class="card-background-light absolute inset-0 -z-1" />
 			{#if mode === 'Twitter'}
 				<div>

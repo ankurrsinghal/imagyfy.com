@@ -1,5 +1,5 @@
 import { getContext, setContext } from 'svelte';
-import { writable, type Readable } from 'svelte/store';
+import { writable, type Readable, type Writable } from 'svelte/store';
 import type { Gradient, GradientType } from './types';
 
 const gradientsTypes: GradientType[] = [
@@ -22,6 +22,7 @@ interface GradientStoreProps {
 	gradients: Gradient[];
 	activeGradient: Readable<Gradient>;
 	setActiveGradient: (gradient: Gradient) => void;
+	padding: Writable<number>;
 }
 
 const GRADIENT_STORE_KEY = Symbol('GradientStore');
@@ -34,7 +35,8 @@ export function setupGradientStore() {
 	setContext<GradientStoreProps>(GRADIENT_STORE_KEY, {
 		gradients,
 		activeGradient,
-		setActiveGradient: set
+		setActiveGradient: set,
+		padding: writable(20),
 	});
 }
 
