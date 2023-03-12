@@ -67,7 +67,7 @@
     </div>
   {/if}
   <div bind:this={ref} class="p-12 canvas relative flex items-center justify-center" style:width style:height>
-    <div class="canvas-background absolute inset-0" style:background-image={$activeGradient}></div>
+    <div class="canvas-background absolute inset-0" style:background-image={$activeGradient.gradient}></div>
     <div class="absolute inset-0 z-10">
       <div class="absolute w-5 h-5 cursor-ns-resize top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <Corner onResize={(dx, dy) => handleResize("top", { dx, dy })} onResizeStart={() => handleResizeStart("top")} onResizeEnd={handleResizeStop} />

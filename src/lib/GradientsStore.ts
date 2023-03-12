@@ -1,8 +1,8 @@
 import { getContext, setContext } from 'svelte';
 import { writable, type Readable } from 'svelte/store';
-import type { GradientType } from './types';
+import type { Gradient, GradientType } from './types';
 
-const Gradients: GradientType[] = [
+const gradientsTypes: GradientType[] = [
 	'linear-gradient(310deg, rgb(214, 233, 255), rgb(214, 229, 255), rgb(209, 214, 255), rgb(221, 209, 255), rgb(243, 209, 255), rgb(255, 204, 245), rgb(255, 204, 223), rgb(255, 200, 199), rgb(255, 216, 199), rgb(255, 221, 199))',
 	'linear-gradient(160deg, rgb(204, 251, 252), rgb(197, 234, 254), rgb(189, 211, 255))',
 	'linear-gradient(150deg, rgb(255, 242, 158), rgb(255, 239, 153), rgb(255, 231, 140), rgb(255, 217, 121), rgb(255, 197, 98), rgb(255, 171, 75), rgb(255, 143, 52), rgb(255, 115, 33), rgb(255, 95, 20), rgb(255, 87, 15))',
@@ -13,21 +13,23 @@ const Gradients: GradientType[] = [
 	'linear-gradient(150deg, rgb(95, 108, 138), rgb(48, 59, 94), rgb(14, 18, 38))'
 ];
 
+const gradients: Gradient[] = gradientsTypes.map((gradient, index) => ({ id: index.toString(), gradient }));
+
 interface GradientStoreProps {
-	gradients: GradientType[];
-	activeGradient: Readable<GradientType>;
-	setActiveGradient: (gradient: GradientType) => void;
+	gradients: Gradient[];
+	activeGradient: Readable<Gradient>;
+	setActiveGradient: (gradient: Gradient) => void;
 }
 
 const GRADIENT_STORE_KEY = Symbol('GradientStore');
 
 export function setupGradientStore() {
-	const { set, subscribe } = writable(Gradients[0]!);
+	const { set, subscribe } = writable(gradients[0]!);
 
-	const activeGradient: Readable<GradientType> = { subscribe };
+	const activeGradient: Readable<Gradient> = { subscribe };
 
 	setContext<GradientStoreProps>(GRADIENT_STORE_KEY, {
-		gradients: Gradients,
+		gradients,
 		activeGradient,
 		setActiveGradient: set
 	});
