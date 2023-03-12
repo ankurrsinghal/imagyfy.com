@@ -31,7 +31,7 @@ function handlePointerUp(e: PointerEvent) {
 
 <div
   bind:this={ref}
-  class="resize-corner w-full h-full bg-white rounded-full absolute"
+  class="resize-corner w-full h-full bg-white rounded-full absolute transition-transform transform scale-[0.3] group-hover:scale-100"
   on:pointerdown={handlePointerDown}
   on:pointermove={handlePointerMove}
   on:pointerup={handlePointerUp}

@@ -7,9 +7,13 @@
 	function handleGradientClick(gradient: Gradient) {
 		setActiveGradient(gradient);
 	}
+
+  function handleMoreGradientsButtonClick() {
+
+  }
 </script>
 
-<div class="bg-gray-100 w-[300px] p-4">
+<div class="bg-gray-100 w-[300px] p-4 space-y-8">
 	<div>
 		<div class="mb-3">Background</div>
 		<div class="flex">
@@ -27,7 +31,25 @@
 						/>
 					</div>
 				{/each}
+        <div class="aspect-square">
+          <button on:click={handleMoreGradientsButtonClick} class="w-full h-full rounded-md cursor-pointer mx-auto outline-dashed text-lg font-mono flex items-center justify-center">
+            +
+          </button>
+        </div>
 			</div>
 		</div>
 	</div>
+
+  <div>
+    <div class="mb-3 flex justify-between items-center">
+      <div>Card</div>
+      <div class="space-x-2 flex">
+        <div>
+          
+        </div>
+          <label for="card-dark">Dark</label>
+          <input name="card-type" id="card-dark" type="radio">
+      </div>
+    </div>
+  </div>
 </div>
