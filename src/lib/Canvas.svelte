@@ -139,7 +139,7 @@
 			class="px-4 py-2 bg-black rounded-md text-white shadow-lg"
 			placeholder="Enter Tweet URL"
 		/>
-		<div>
+		<div class="relative cursor-pointer">
 			<button
 				class="px-4 py-2 bg-black rounded-md text-white shadow-lg pointer-events-none">or Upload Image</button
 			>
