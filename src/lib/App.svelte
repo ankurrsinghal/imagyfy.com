@@ -8,6 +8,9 @@
 </script>
 
 <div class="w-full h-full flex app">
+  <div class="fixed top-4 left-4 overflow-hidden z-10 shadow-xl">
+    <a href="/" class="w-24 h-10 bg-black rounded-md text-white p-1 flex items-center justify-center">ImagyFy</a>
+  </div>
   <DataContext>
     <Canvas />
     <Controller />
