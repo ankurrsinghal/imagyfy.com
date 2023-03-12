@@ -47,21 +47,21 @@
   const { activeGradient } = getGradientStore();
 </script>
 
-<div class="relative">
+<div class="relative flex-1 flex items-center justify-center">
   {#if scaleVertical}
-    <div transition:fade class="absolute top-0 bottom-0 left-0 w-4 transform -translate-x-[300%] flex items-center justify-center flex-col">
+    <div transition:fade class="absolute top-0 bottom-0 left-0 w-4 transform -translate-x-[200%] flex items-center justify-center flex-col">
       <div class="w-full h-[1px] bg-slate-50"></div>
       <div class="w-[1px] bg-slate-50 flex-1"></div>
-      <div class="text-sm py-8 text-slate-50 font-mono transform -rotate-90">{height}</div>
+      <div class="text-xs py-8 text-slate-50 font-mono transform -rotate-90">{height}</div>
       <div class="w-[1px] bg-slate-50 flex-1"></div>
       <div class="w-full h-[1px] bg-slate-50"></div>
     </div>
   {/if}
   {#if scaleHorizontal}
-    <div transition:fade class="absolute left-0 bottom-0 right-0 h-4 transform translate-y-[300%] flex items-center justify-center">
+    <div transition:fade class="absolute left-0 bottom-0 right-0 h-4 transform translate-y-[200%] flex items-center justify-center">
       <div class="h-full w-[1px] bg-slate-50"></div>
       <div class="h-[1px] bg-slate-50 flex-1"></div>
-      <div class="text-sm px-8 text-slate-50 font-mono">{width}</div>
+      <div class="text-xs px-8 text-slate-50 font-mono">{width}</div>
       <div class="h-[1px] bg-slate-50 flex-1"></div>
       <div class="h-full w-[1px] bg-slate-50"></div>
     </div>
