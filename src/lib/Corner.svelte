@@ -9,6 +9,8 @@ let isDragging = false;
 function handlePointerDown(e: PointerEvent) {
   if (!ref) return;
   if (e.buttons > 1) return;
+  e.preventDefault();
+  e.stopPropagation();
   isDragging = true;
   ref.setPointerCapture(e.pointerId);
   onResizeStart();
@@ -16,12 +18,16 @@ function handlePointerDown(e: PointerEvent) {
 
 function handlePointerMove(e: PointerEvent) {
   if (isDragging) {
+    e.preventDefault();
+    e.stopPropagation();
     onResize(e.movementX, e.movementY);
   }
 }
 
 function handlePointerUp(e: PointerEvent) {
   if (!ref) return;
+  e.preventDefault();
+  e.stopPropagation();
   isDragging = false;
   ref.releasePointerCapture(e.pointerId);
   onResizeEnd();

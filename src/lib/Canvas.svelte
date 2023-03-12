@@ -3,11 +3,16 @@
 	import Card from "./Card.svelte";
 	import Corner from "./Corner.svelte";
 	import { getGradientStore } from "./GradientsStore";
-  let ref: HTMLDivElement | undefined;
+  import { toPng as htmlToPNG } from 'html-to-image';
+  import { loadingAction } from 'svelte-legos';
+  import FileSaver from "file-saver";
+
+  let canvasRef: HTMLDivElement | undefined;
   let __width = 800;
   let __height = 600;
   let scaleHorizontal = false;
   let scaleVertical = false;
+  let isCanvasLoading = false;
 
   const MAX_WIDTH = 1080;
   const MIN_WIDTH = 425;
@@ -21,7 +26,7 @@
   type Placement = "top" | "right" | "bottom" | "left";
 
   function handleResize(placement: Placement, { dx, dy }: { dx: number, dy: number }) {
-    if (!ref) return;
+    if (!canvasRef) return;
     let width = __width;
     let height = __height;
 
@@ -44,10 +49,24 @@
     scaleVertical = false;
   }
 
+  function handleDownloadClick() {
+    if (canvasRef) {
+      isCanvasLoading = true;
+      htmlToPNG(canvasRef)
+        .then(dataURL => {
+          FileSaver.saveAs(dataURL, 'my-node.png');
+          isCanvasLoading = false;
+        })
+        .catch(e => {
+          isCanvasLoading = false;
+        })
+    }
+  }
+
   const { activeGradient } = getGradientStore();
 </script>
 
-<div class="relative flex-1 flex items-center justify-center">
+<div use:loadingAction={isCanvasLoading} class="relative flex-1 flex items-center justify-center">
   {#if scaleVertical}
     <div transition:fade class="absolute top-0 bottom-0 left-0 w-4 transform -translate-x-[200%] flex items-center justify-center flex-col">
       <div class="w-full h-[1px] bg-slate-50"></div>
@@ -66,7 +85,7 @@
       <div class="h-full w-[1px] bg-slate-50"></div>
     </div>
   {/if}
-  <div bind:this={ref} class="p-12 canvas relative flex items-center justify-center" style:width style:height>
+  <div bind:this={canvasRef} class="p-12 canvas relative flex items-center justify-center" style:width style:height>
     <div class="canvas-background absolute inset-0" style:background-image={$activeGradient.gradient}></div>
     <div class="absolute inset-0 z-10">
       <div class="absolute group w-4 h-4 cursor-ns-resize top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
@@ -84,6 +103,8 @@
     </div>
     <Card width={width} height={height} />
   </div>
+
+  <button on:click={handleDownloadClick} class="absolute bottom-4 px-4 py-2 bg-black rounded-md text-white">Download</button>
 </div>
 
 <style>
