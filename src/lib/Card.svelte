@@ -1,10 +1,13 @@
 <script lang="ts">
 	import type { Tweet } from './Tweet';
 	import Moment from 'moment';
+	import type { CanvasMode } from './types';
 
 	export let width: string;
 	export let height: string;
 	export let tweet: Tweet | undefined;
+	export let mode: CanvasMode;
+	export let imageSRC: string;
 
 	// function kFormatter(num: number) {
 	// 	return Math.abs(num) > 999
@@ -20,40 +23,44 @@
 		<div class="card-background absolute inset-0" style:background-size="{width} {height}" />
 		<div class="p-8 relative">
 			<div class="card-background-light absolute inset-0 -z-1" />
-			<div>
-				<div class="flex items-center mb-4">
-					<img
-						class="inline object-cover rounded-full transition-all duration-150 mr-3"
-						src={tweet.user.profileImageURL}
-						alt={tweet.user.name}
-					/>
-					<div class="flex flex-col">
-						<div class="whitespace-nowrap text-black text-xl">{tweet.user.name}</div>
-						<div class="whitespace-nowrap text-gray-700 text-lg">@{tweet.user.username}</div>
-					</div>
-				</div>
-
-				<div class="mb-4">
-					<div class="whitespace-pre-wrap text-xl">
-						{tweet.text}
-					</div>
-				</div>
-
+			{#if mode === 'Twitter'}
 				<div>
-					<div class="mb-2 text-gray-400">{moment?.format('hh:mm A [·] MMM DD[,] YYYY')}</div>
-					<div class="flex space-x-4">
-						<div class="whitespace-nowrap text-gray-400">
-							<span class="text-black font-bold">{tweet.metrics.replies}</span> replies
+					<div class="flex items-center mb-4">
+						<img
+							class="inline object-cover rounded-full transition-all duration-150 mr-3"
+							src={tweet.user.profileImageURL}
+							alt={tweet.user.name}
+						/>
+						<div class="flex flex-col">
+							<div class="whitespace-nowrap text-black text-xl">{tweet.user.name}</div>
+							<div class="whitespace-nowrap text-gray-700 text-lg">@{tweet.user.username}</div>
 						</div>
-						<div class="whitespace-nowrap text-gray-400">
-							<span class="text-black font-bold">{tweet.metrics.retweets}</span> retweets
+					</div>
+
+					<div class="mb-4">
+						<div class="whitespace-pre-wrap text-xl">
+							{tweet.text}
 						</div>
-						<div class="whitespace-nowrap text-gray-400">
-							<span class="text-black font-bold">{tweet.metrics.likes}</span> likes
+					</div>
+
+					<div>
+						<div class="mb-2 text-gray-400">{moment?.format('hh:mm A [·] MMM DD[,] YYYY')}</div>
+						<div class="flex space-x-4">
+							<div class="whitespace-nowrap text-gray-400">
+								<span class="text-black font-bold">{tweet.metrics.replies}</span> replies
+							</div>
+							<div class="whitespace-nowrap text-gray-400">
+								<span class="text-black font-bold">{tweet.metrics.retweets}</span> retweets
+							</div>
+							<div class="whitespace-nowrap text-gray-400">
+								<span class="text-black font-bold">{tweet.metrics.likes}</span> likes
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			{:else}
+				<img src={imageSRC} alt="Preview" />
+			{/if}
 		</div>
 	</div>
 {/if}

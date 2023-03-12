@@ -7,6 +7,11 @@
 	import { loadingAction } from 'svelte-legos';
 	import FileSaver from 'file-saver';
 	import { DefaultDecodedTweet, LoadTweet, type Tweet } from './Tweet';
+	import type { CanvasMode } from './types';
+
+	export let droppedFile: File | undefined;
+
+	let currentMode: CanvasMode = "Twitter";
 
 	let canvasRef: HTMLDivElement | undefined;
 	let rendererRef: HTMLDivElement | undefined;
@@ -88,6 +93,7 @@
         console.log("fire");
 				LoadTweet(tweetId).then(tweetData => {
 					if (tweetData) {
+						currentMode = "Twitter";
 						tweet = tweetData;
 					}
 				}).finally(() => {
@@ -97,15 +103,49 @@
       }
     }
   }
+
+	let uploadInputRef: HTMLInputElement;
+	let imageSRC = '';
+
+	function renderImage(file: File) {
+		currentMode = "Upload";
+		imageSRC = URL.createObjectURL(file);
+	}
+
+	function handleUpload() {
+		const files = uploadInputRef.files;
+		if (files && files.length > 0) {
+			const file = files[0];
+			renderImage(file);
+		}
+	}
+
+	$: {
+		if (droppedFile) {
+			if (droppedFile.type.includes('image')) {
+				renderImage(droppedFile);
+			}
+		}
+	}
 </script>
 
 <div use:loadingAction={isCanvasLoading} class="relative flex-1 flex items-center justify-center">
-	<input
-		bind:value={tweetURL}
-		on:input={handleTweetURLChange}
-		class="absolute top-4 px-4 py-2 bg-black rounded-md text-white shadow-lg"
-		placeholder="Enter Tweet URL"
-	/>
+	<div
+		class="absolute top-4 px-4 flex items-center space-x-4"
+	>
+		<input
+			bind:value={tweetURL}
+			on:input={handleTweetURLChange}
+			class="px-4 py-2 bg-black rounded-md text-white shadow-lg"
+			placeholder="Enter Tweet URL"
+		/>
+		<div>
+			<button
+				class="px-4 py-2 bg-black rounded-md text-white shadow-lg pointer-events-none">or Upload Image</button
+			>
+			<input class="absolute inset-0 opacity-0 cursor-pointer" accept="image/*" bind:this={uploadInputRef} type="file" on:change={handleUpload} />
+		</div>
+	</div>
 	{#if scaleVertical}
 		<div
 			transition:fade
@@ -174,7 +214,7 @@
 				class="canvas-background absolute inset-0"
 				style:background-image={$activeGradient.gradient}
 			/>
-			<Card tweet={tweet} {width} {height} />
+			<Card tweet={tweet} imageSRC={imageSRC} mode={currentMode} {width} {height} />
 		</div>
 	</div>
 
