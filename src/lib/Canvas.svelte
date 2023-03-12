@@ -8,6 +8,7 @@
   import FileSaver from "file-saver";
 
   let canvasRef: HTMLDivElement | undefined;
+  let rendererRef: HTMLDivElement | undefined;
   let __width = 800;
   let __height = 600;
   let scaleHorizontal = false;
@@ -50,16 +51,20 @@
   }
 
   function handleDownloadClick() {
-    if (canvasRef) {
+    if (rendererRef) {
       isCanvasLoading = true;
-      htmlToPNG(canvasRef)
-        .then(dataURL => {
-          FileSaver.saveAs(dataURL, 'my-node.png');
-          isCanvasLoading = false;
-        })
-        .catch(e => {
-          isCanvasLoading = false;
-        })
+      setTimeout(() => {
+        if (rendererRef) {
+          htmlToPNG(rendererRef)
+            .then(dataURL => {
+              FileSaver.saveAs(dataURL, 'my-node.png');
+              isCanvasLoading = false;
+            })
+            .catch(e => {
+              isCanvasLoading = false;
+            })
+        }
+      }, 1200);
     }
   }
 
@@ -85,8 +90,7 @@
       <div class="h-full w-[1px] bg-slate-50"></div>
     </div>
   {/if}
-  <div bind:this={canvasRef} class="p-12 canvas relative flex items-center justify-center" style:width style:height>
-    <div class="canvas-background absolute inset-0" style:background-image={$activeGradient.gradient}></div>
+  <div bind:this={canvasRef} class="canvas relative" style:width style:height>
     <div class="absolute inset-0 z-10">
       <div class="absolute group w-4 h-4 cursor-ns-resize top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <Corner onResize={(dx, dy) => handleResize("top", { dx, dy })} onResizeStart={() => handleResizeStart("top")} onResizeEnd={handleResizeStop} />
@@ -101,7 +105,10 @@
         <Corner onResize={(dx, dy) => handleResize("left", { dx, dy })} onResizeStart={() => handleResizeStart("left")} onResizeEnd={handleResizeStop}  />
       </div>
     </div>
-    <Card width={width} height={height} />
+    <div bind:this={rendererRef} class="absolute p-12 inset-0 flex items-center justify-center">
+      <div class="canvas-background absolute inset-0" style:background-image={$activeGradient.gradient}></div>
+      <Card width={width} height={height} />
+    </div>
   </div>
 
   <button on:click={handleDownloadClick} class="absolute bottom-4 px-4 py-2 bg-black rounded-md text-white">Download</button>
