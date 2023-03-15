@@ -56,11 +56,14 @@
 		scaleVertical = false;
 	}
 
+	const { activeGradient, font } = getGradientStore();
+
 	function handleDownloadClick() {
 		if (rendererRef) {
 			isCanvasLoading = true;
 			setTimeout(() => {
 				if (rendererRef) {
+					rendererRef.style.fontFamily = $font.name;
 					htmlToPNG(rendererRef)
 						.then((dataURL) => {
 							FileSaver.saveAs(dataURL, 'my-node.png');
@@ -73,8 +76,6 @@
 			}, 1200);
 		}
 	}
-
-	const { activeGradient } = getGradientStore();
 
 	let tweetURL = '';
 	let lastTweetId = '';

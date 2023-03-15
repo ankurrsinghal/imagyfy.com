@@ -24,6 +24,7 @@
 			const link = document.createElement('link');
 			link.href = $font.url;
 			link.rel = 'stylesheet';
+			link.crossOrigin = 'anonymous';
 			document.head.appendChild(link);
 			font.update(font => {
 				font.isLoaded = true;
