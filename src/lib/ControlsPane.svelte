@@ -2,15 +2,14 @@
 	import { getGradientStore } from './GradientsStore';
 	import type { Gradient } from './types';
 
-	const { gradients, setActiveGradient, activeGradient, padding, borderRadius } = getGradientStore();
+	const { gradients, setActiveGradient, activeGradient, padding, borderRadius, scale } =
+		getGradientStore();
 
 	function handleGradientClick(gradient: Gradient) {
 		setActiveGradient(gradient);
 	}
 
-  function handleMoreGradientsButtonClick() {
-
-  }
+	function handleMoreGradientsButtonClick() {}
 </script>
 
 <div class="bg-gray-100 w-[300px] p-4 space-y-8">
@@ -31,30 +30,42 @@
 						/>
 					</div>
 				{/each}
-        <div class="aspect-square">
-          <button on:click={handleMoreGradientsButtonClick} class="w-full h-full rounded-md cursor-pointer mx-auto outline-dashed text-lg font-mono flex items-center justify-center">
-            +
-          </button>
-        </div>
+				<div class="aspect-square">
+					<button
+						on:click={handleMoreGradientsButtonClick}
+						class="w-full h-full rounded-md cursor-pointer mx-auto outline-dashed text-lg font-mono flex items-center justify-center"
+					>
+						+
+					</button>
+				</div>
 			</div>
 		</div>
 	</div>
 
-  <div>
-    <div class="mb-3 flex justify-between items-center">
-      <div>Padding</div>
-    </div>
+	<div>
+		<div class="mb-3 flex justify-between items-center">
+			<div>Padding</div>
+		</div>
 		<div>
 			<input class="w-full" type="range" bind:value={$padding} />
 		</div>
-  </div>
+	</div>
 
 	<div>
-    <div class="mb-3 flex justify-between items-center">
-      <div>Border Radius</div>
-    </div>
+		<div class="mb-3 flex justify-between items-center">
+			<div>Border Radius</div>
+		</div>
 		<div>
 			<input class="w-full" type="range" max="50" bind:value={$borderRadius} />
 		</div>
-  </div>
+	</div>
+
+	<div>
+		<div class="mb-3 flex justify-between items-center">
+			<div>Scale</div>
+		</div>
+		<div>
+			<input class="w-full" type="range" min="50" max="150" bind:value={$scale} />
+		</div>
+	</div>
 </div>

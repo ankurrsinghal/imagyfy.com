@@ -15,13 +15,13 @@
 	// 		? Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + 'k'
 	// 		: Math.sign(num) * Math.abs(num);
 	// }
-	const { padding, borderRadius } = getGradientStore();
+	const { padding, borderRadius, scale } = getGradientStore();
 
 	$: moment = tweet && Moment(tweet.createdAt);
 </script>
 
 {#if tweet}
-	<div class="max-w-[39em] relative z-0 transition-all w-full card-holder overflow-hidden" style:border-radius="{$borderRadius}px">
+	<div class="max-w-[39em] relative z-0 transition-all w-full card-holder overflow-hidden" style:transform="scale({$scale/100})" style:border-radius="{$borderRadius}px">
 		<div class="card-background absolute inset-0" style:background-size="{width} {height}" />
 		<div class="relative" style:padding={$padding + 'px'}>
 			<div class="card-background-light absolute inset-0 -z-1" />

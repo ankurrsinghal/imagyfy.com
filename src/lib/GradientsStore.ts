@@ -24,6 +24,7 @@ interface GradientStoreProps {
 	setActiveGradient: (gradient: Gradient) => void;
 	padding: Writable<number>;
   borderRadius: Writable<number>;
+  scale: Writable<number>;
 }
 
 const GRADIENT_STORE_KEY = Symbol('GradientStore');
@@ -39,6 +40,7 @@ export function setupGradientStore() {
 		setActiveGradient: set,
 		padding: writable(20),
     borderRadius: writable(16),
+    scale: writable(100),
 	});
 }
 
