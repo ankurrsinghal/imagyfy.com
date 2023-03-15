@@ -212,8 +212,9 @@
 		</div>
 		<div bind:this={rendererRef} class="absolute p-12 inset-0 flex items-center justify-center">
 			<div
-				class="canvas-background absolute inset-0 rounded-xl"
+				class="canvas-background absolute inset-0"
 				style:background="#222"
+				style:border-radius="{!isCanvasLoading ? '12px' : '0px'}"
 			/>
 			<Card tweet={tweet} imageSRC={imageSRC} mode={currentMode} {width} {height} />
 		</div>

@@ -52,6 +52,7 @@ interface GradientStoreProps {
 	borderRadius: Writable<number>;
 	scale: Writable<number>;
 	font: Writable<Font>;
+  showResponse: Writable<boolean>;
 }
 
 const GRADIENT_STORE_KEY = Symbol('GradientStore');
@@ -75,6 +76,7 @@ export function setupGradientStore() {
 		borderRadius: writable(16),
 		scale: writable(100),
     font: fontWritable,
+    showResponse: writable(true),
 	});
 }
 

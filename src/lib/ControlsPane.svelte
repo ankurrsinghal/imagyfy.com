@@ -2,7 +2,7 @@
 	import { getGradientStore } from './GradientsStore';
 	import type { Gradient } from './types';
 
-	const { gradients, setActiveGradient, activeGradient, padding, borderRadius, scale, fonts, font } =
+	const { gradients, setActiveGradient, activeGradient, padding, borderRadius, scale, fonts, font, showResponse } =
 		getGradientStore();
 
 	function handleGradientClick(gradient: Gradient) {
@@ -85,6 +85,15 @@
 					</option>
 				{/each}
 			</select>
+		</div>
+	</div>
+
+	<div>
+		<div class="mb-3 flex justify-between items-center">
+			<div>Show Responses</div>
+		</div>
+		<div>
+			<input type="checkbox" bind:checked={$showResponse} />
 		</div>
 	</div>
 	

@@ -16,7 +16,7 @@
 	// 		? Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + 'k'
 	// 		: Math.sign(num) * Math.abs(num);
 	// }
-	const { padding, borderRadius, scale, font } = getGradientStore();
+	const { padding, borderRadius, scale, font, showResponse } = getGradientStore();
 
 	$: moment = tweet && Moment(tweet.createdAt);
 	$: {
@@ -64,18 +64,20 @@
 					</div>
 
 					<div class="text-sm">
-						<div class="mb-2 text-[#888]">{moment?.format('hh:mm A [·] MMM DD[,] YYYY')}</div>
-						<div class="flex space-x-4">
-							<div class="whitespace-nowrap text-[#555]">
-								<span class="text-[#eee] font-bold">{tweet.metrics.replies}</span> replies
+						<div class="text-[#888]">{moment?.format('hh:mm A [·] MMM DD[,] YYYY')}</div>
+						{#if $showResponse}
+							<div class="mt-2 flex space-x-4">
+								<div class="whitespace-nowrap text-[#555]">
+									<span class="text-[#eee] font-bold">{tweet.metrics.replies}</span> replies
+								</div>
+								<div class="whitespace-nowrap text-[#555]">
+									<span class="text-[#eee] font-bold">{tweet.metrics.retweets}</span> retweets
+								</div>
+								<div class="whitespace-nowrap text-[#555]">
+									<span class="text-[#eee] font-bold">{tweet.metrics.likes}</span> likes
+								</div>
 							</div>
-							<div class="whitespace-nowrap text-[#555]">
-								<span class="text-[#eee] font-bold">{tweet.metrics.retweets}</span> retweets
-							</div>
-							<div class="whitespace-nowrap text-[#555]">
-								<span class="text-[#eee] font-bold">{tweet.metrics.likes}</span> likes
-							</div>
-						</div>
+						{/if}
 					</div>
 				</div>
 			{:else}
