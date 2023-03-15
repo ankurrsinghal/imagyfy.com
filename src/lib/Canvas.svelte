@@ -211,8 +211,8 @@
 		</div>
 		<div bind:this={rendererRef} class="absolute p-12 inset-0 flex items-center justify-center">
 			<div
-				class="canvas-background absolute inset-0"
-				style:background-image={$activeGradient.gradient}
+				class="canvas-background absolute inset-0 rounded-xl"
+				style:background="#222"
 			/>
 			<Card tweet={tweet} imageSRC={imageSRC} mode={currentMode} {width} {height} />
 		</div>
@@ -231,7 +231,6 @@
 	}
 
 	.canvas-background {
-		border-radius: 10px;
 		box-shadow: #ffffff26 0 0 0 1px, #32325d45 0 80px 120px -20px, #0000004d 0 30px 60px -10px;
 	}
 </style>

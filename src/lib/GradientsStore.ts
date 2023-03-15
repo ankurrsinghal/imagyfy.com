@@ -1,6 +1,6 @@
 import { getContext, setContext } from 'svelte';
 import { writable, type Readable, type Writable } from 'svelte/store';
-import type { Gradient, GradientType } from './types';
+import type { Font, Gradient, GradientType } from './types';
 
 const gradientsTypes: GradientType[] = [
 	'linear-gradient(310deg, rgb(214, 233, 255), rgb(214, 229, 255), rgb(209, 214, 255), rgb(221, 209, 255), rgb(243, 209, 255), rgb(255, 204, 245), rgb(255, 204, 223), rgb(255, 200, 199), rgb(255, 216, 199), rgb(255, 221, 199))',
@@ -13,34 +13,68 @@ const gradientsTypes: GradientType[] = [
 	'linear-gradient(150deg, rgb(95, 108, 138), rgb(48, 59, 94), rgb(14, 18, 38))',
 	'linear-gradient( 68.4deg,  rgba(99,251,215,1) -0.4%, rgba(5,222,250,1) 100.2% )',
 	'linear-gradient( 102.4deg,  rgba(253,189,85,1) 7.8%, rgba(249,131,255,1) 100.3% )',
-	'linear-gradient( 64.3deg,  rgba(254,122,152,0.81) 17.7%, rgba(255,206,134,1) 64.7%, rgba(172,253,163,0.64) 112.1% )',
+	'linear-gradient( 64.3deg,  rgba(254,122,152,0.81) 17.7%, rgba(255,206,134,1) 64.7%, rgba(172,253,163,0.64) 112.1% )'
 ];
 
-const gradients: Gradient[] = gradientsTypes.map((gradient, index) => ({ id: index.toString(), gradient }));
+const fonttypes = [
+	'Overpass',
+	'Lato',
+	'Merriweather',
+	'Alegreya',
+	'Montserrat',
+	'Aleo',
+	'Muli',
+	'Arapey',
+	'Nunito',
+	'Asap Condensed'
+];
+
+const gradients: Gradient[] = gradientsTypes.map((gradient, index) => ({
+	id: index.toString(),
+	gradient
+}));
+
+const fonts: Font[] = fonttypes.map((name, index) => ({
+	id: index.toString(),
+	name,
+	url: `https://fonts.googleapis.com/css2?family=${name}&display=swap`,
+	isLoaded: false,
+}));
 
 interface GradientStoreProps {
 	gradients: Gradient[];
+	fonts: Font[];
 	activeGradient: Readable<Gradient>;
+	activeFont: Readable<Font>;
 	setActiveGradient: (gradient: Gradient) => void;
+	setActiveFont: (font: Font) => void;
 	padding: Writable<number>;
-  borderRadius: Writable<number>;
-  scale: Writable<number>;
+	borderRadius: Writable<number>;
+	scale: Writable<number>;
+	font: Writable<Font>;
 }
 
 const GRADIENT_STORE_KEY = Symbol('GradientStore');
 
-export function setupGradientStore() {
-	const { set, subscribe } = writable(gradients[0]!);
+function writableToReadable<T>(writable: Writable<T>): Readable<T> {
+	return { subscribe: writable.subscribe };
+}
 
-	const activeGradient: Readable<Gradient> = { subscribe };
+export function setupGradientStore() {
+	const gradientWritable = writable(gradients[0]!);
+	const fontWritable = writable(fonts[0]!);
 
 	setContext<GradientStoreProps>(GRADIENT_STORE_KEY, {
 		gradients,
-		activeGradient,
-		setActiveGradient: set,
+		fonts,
+		activeGradient: writableToReadable(gradientWritable),
+		activeFont: writableToReadable(fontWritable),
+		setActiveGradient: gradientWritable.set,
+		setActiveFont: fontWritable.set,
 		padding: writable(20),
-    borderRadius: writable(16),
-    scale: writable(100),
+		borderRadius: writable(16),
+		scale: writable(100),
+    font: fontWritable,
 	});
 }
 

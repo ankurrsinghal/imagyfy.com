@@ -2,7 +2,7 @@
 	import { getGradientStore } from './GradientsStore';
 	import type { Gradient } from './types';
 
-	const { gradients, setActiveGradient, activeGradient, padding, borderRadius, scale } =
+	const { gradients, setActiveGradient, activeGradient, padding, borderRadius, scale, fonts, font } =
 		getGradientStore();
 
 	function handleGradientClick(gradient: Gradient) {
@@ -10,6 +10,10 @@
 	}
 
 	function handleMoreGradientsButtonClick() {}
+
+	function handleFontChange() {
+
+	}
 </script>
 
 <div class="bg-gray-100 w-[300px] p-4 space-y-8">
@@ -68,4 +72,20 @@
 			<input class="w-full" type="range" min="50" max="150" bind:value={$scale} />
 		</div>
 	</div>
+
+	<div>
+		<div class="mb-3 flex justify-between items-center">
+			<div>Font</div>
+		</div>
+		<div>
+			<select bind:value={$font} class="px-4 py-2 rounded-lg">
+				{#each fonts as font}
+					<option value={font}>
+						{font.name}
+					</option>
+				{/each}
+			</select>
+		</div>
+	</div>
+	
 </div>

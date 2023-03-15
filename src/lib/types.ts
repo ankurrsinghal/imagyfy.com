@@ -6,3 +6,10 @@ export interface Gradient {
 }
 
 export type CanvasMode = "Twitter" | "Upload";
+
+export interface Font {
+  id: string;
+  name: string;
+  url: string;
+  isLoaded: boolean;
+}

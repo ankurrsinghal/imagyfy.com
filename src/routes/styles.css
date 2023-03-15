@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+/* 
 @font-face {
     font-family: Overpass;
     src: url('/overpass.woff2');
@@ -9,4 +9,4 @@
 
 :root {
   font-family: Overpass;   
-}
+} */

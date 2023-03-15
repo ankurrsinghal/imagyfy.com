@@ -34,6 +34,8 @@
 	<meta name="msapplication-TileImage" content="/mstile-150x150.png" />
 	<meta name="msapplication-TileColor" content="#1EA0F1">
 	<meta name="theme-color" content="#1EA0F1">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </svelte:head>
 
 <div class="app">
