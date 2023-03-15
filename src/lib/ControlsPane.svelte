@@ -2,7 +2,7 @@
 	import { getGradientStore } from './GradientsStore';
 	import type { Gradient } from './types';
 
-	const { gradients, setActiveGradient, activeGradient, padding } = getGradientStore();
+	const { gradients, setActiveGradient, activeGradient, padding, borderRadius } = getGradientStore();
 
 	function handleGradientClick(gradient: Gradient) {
 		setActiveGradient(gradient);
@@ -46,6 +46,15 @@
     </div>
 		<div>
 			<input class="w-full" type="range" bind:value={$padding} />
+		</div>
+  </div>
+
+	<div>
+    <div class="mb-3 flex justify-between items-center">
+      <div>Border Radius</div>
+    </div>
+		<div>
+			<input class="w-full" type="range" max="50" bind:value={$borderRadius} />
 		</div>
   </div>
 </div>
