@@ -1,6 +1,6 @@
 <a href="https://imagyfy.com">
   <img alt="Imagyfy – An online screenshot and tweet to image app." src="https://imagyfy.com/cover.png">
-  <h1 align="center">GPTPro</h1>
+  <h1 align="center">Imagyfy</h1>
 </a>
 
 <p align="center">
