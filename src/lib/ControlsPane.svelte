@@ -2,8 +2,19 @@
 	import { getGradientStore } from './GradientsStore';
 	import type { Gradient } from './types';
 
-	const { gradients, setActiveGradient, activeGradient, padding, borderRadius, scale, fonts, font, showResponse } =
-		getGradientStore();
+	const {
+		gradients,
+		setActiveGradient,
+		activeGradient,
+		padding,
+		borderRadius,
+		scale,
+		fonts,
+		font,
+		showResponse,
+		cardGlassOpacity,
+		cardGlassBlur
+	} = getGradientStore();
 
 	function handleGradientClick(gradient: Gradient) {
 		setActiveGradient(gradient);
@@ -11,9 +22,7 @@
 
 	function handleMoreGradientsButtonClick() {}
 
-	function handleFontChange() {
-
-	}
+	function handleFontChange() {}
 </script>
 
 <div class="bg-gray-100 w-[300px] p-4 space-y-8">
@@ -96,5 +105,29 @@
 			<input type="checkbox" bind:checked={$showResponse} />
 		</div>
 	</div>
-	
+
+	<div>
+		<div class="mb-3 flex justify-between items-center">
+			<div>Glass Transparency</div>
+		</div>
+		<div>
+			<input
+				class="w-full"
+				type="range"
+				min={0}
+				max={1}
+				step={0.01}
+				bind:value={$cardGlassOpacity}
+			/>
+		</div>
+	</div>
+
+	<div>
+		<div class="mb-3 flex justify-between items-center">
+			<div>Glass Blur</div>
+		</div>
+		<div>
+			<input class="w-full" type="range" min={0} max={20} step={0.1} bind:value={$cardGlassBlur} />
+		</div>
+	</div>
 </div>

@@ -38,7 +38,7 @@ const fonts: Font[] = fonttypes.map((name, index) => ({
 	id: index.toString(),
 	name,
 	url: `https://fonts.googleapis.com/css2?family=${name}&display=swap`,
-	isLoaded: false,
+	isLoaded: false
 }));
 
 interface GradientStoreProps {
@@ -52,7 +52,9 @@ interface GradientStoreProps {
 	borderRadius: Writable<number>;
 	scale: Writable<number>;
 	font: Writable<Font>;
-  showResponse: Writable<boolean>;
+	showResponse: Writable<boolean>;
+	cardGlassOpacity: Writable<number>;
+	cardGlassBlur: Writable<number>;
 }
 
 const GRADIENT_STORE_KEY = Symbol('GradientStore');
@@ -75,8 +77,10 @@ export function setupGradientStore() {
 		padding: writable(20),
 		borderRadius: writable(16),
 		scale: writable(100),
-    font: fontWritable,
-    showResponse: writable(true),
+		font: fontWritable,
+		showResponse: writable(true),
+		cardGlassOpacity: writable(0.44),
+		cardGlassBlur: writable(8.7)
 	});
 }
 

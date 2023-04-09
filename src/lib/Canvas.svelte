@@ -11,7 +11,7 @@
 
 	export let droppedFile: File | undefined;
 
-	let currentMode: CanvasMode = "Twitter";
+	let currentMode: CanvasMode = 'Twitter';
 
 	let canvasRef: HTMLDivElement | undefined;
 	let rendererRef: HTMLDivElement | undefined;
@@ -82,34 +82,36 @@
 
 	let tweet: Tweet | undefined = DefaultDecodedTweet;
 
-  function last<T>(array: T[]) {
-    return array[array.length - 1];
-  }
+	function last<T>(array: T[]) {
+		return array[array.length - 1];
+	}
 
 	function handleTweetURLChange() {
-    if (/^https?:\/\/twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)$/.test(tweetURL)) {
-      const tweetId = last(tweetURL.split('/'));
-      if (tweetId && lastTweetId !== tweetId && /^\d+$/g.test(tweetId)) {
+		if (/^https?:\/\/twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)$/.test(tweetURL)) {
+			const tweetId = last(tweetURL.split('/'));
+			if (tweetId && lastTweetId !== tweetId && /^\d+$/g.test(tweetId)) {
 				isCanvasLoading = true;
-        console.log("fire");
-				LoadTweet(tweetId).then(tweetData => {
-					if (tweetData) {
-						currentMode = "Twitter";
-						tweet = tweetData;
-					}
-				}).finally(() => {
-					isCanvasLoading = false;
-					lastTweetId = tweetId;
-				});
-      }
-    }
-  }
+				console.log('fire');
+				LoadTweet(tweetId)
+					.then((tweetData) => {
+						if (tweetData) {
+							currentMode = 'Twitter';
+							tweet = tweetData;
+						}
+					})
+					.finally(() => {
+						isCanvasLoading = false;
+						lastTweetId = tweetId;
+					});
+			}
+		}
+	}
 
 	let uploadInputRef: HTMLInputElement;
 	let imageSRC = '';
 
 	function renderImage(file: File) {
-		currentMode = "Upload";
+		currentMode = 'Upload';
 		imageSRC = URL.createObjectURL(file);
 	}
 
@@ -131,9 +133,7 @@
 </script>
 
 <div use:loadingAction={isCanvasLoading} class="relative flex-1 flex items-center justify-center">
-	<div
-		class="absolute top-4 px-4 flex items-center space-x-4"
-	>
+	<div class="absolute top-4 px-4 flex items-center space-x-4">
 		<input
 			bind:value={tweetURL}
 			on:input={handleTweetURLChange}
@@ -141,10 +141,16 @@
 			placeholder="Enter Tweet URL"
 		/>
 		<div class="relative cursor-pointer">
-			<button
-				class="px-4 py-2 bg-black rounded-md text-white shadow-lg pointer-events-none">or Upload Image</button
+			<button class="px-4 py-2 bg-black rounded-md text-white shadow-lg pointer-events-none"
+				>or Upload Image</button
 			>
-			<input class="absolute inset-0 opacity-0 cursor-pointer" accept="image/*" bind:this={uploadInputRef} type="file" on:change={handleUpload} />
+			<input
+				class="absolute inset-0 opacity-0 cursor-pointer"
+				accept="image/*"
+				bind:this={uploadInputRef}
+				type="file"
+				on:change={handleUpload}
+			/>
 		</div>
 	</div>
 	{#if scaleVertical}
@@ -213,10 +219,10 @@
 		<div bind:this={rendererRef} class="absolute p-12 inset-0 flex items-center justify-center">
 			<div
 				class="canvas-background absolute inset-0"
-				style:background="#222"
-				style:border-radius="{!isCanvasLoading ? '12px' : '0px'}"
+				style:background={$activeGradient.gradient}
+				style:border-radius={!isCanvasLoading ? '12px' : '0px'}
 			/>
-			<Card tweet={tweet} imageSRC={imageSRC} mode={currentMode} {width} {height} />
+			<Card {tweet} {imageSRC} mode={currentMode} {width} {height} />
 		</div>
 	</div>
 
